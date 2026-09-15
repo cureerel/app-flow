@@ -3,12 +3,93 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>landing</title>
+
+    <title>Landing</title>
+
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav div {
+            display: flex;
+            gap: 8px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 20px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: black;
+            color: white;
+            border-color: black;
+        }
+    </style>
 </head>
+
 <body>
-    <main>
-        <h1>landing</h1>
-    </main>
+
+<nav>
+    <strong>MyApp</strong>
+
+    <div>
+        <button
+            hx-get="http://localhost:3001/login"
+            hx-target="#app"
+            hx-push-url="http://localhost:3001/login">
+            Login
+        </button>
+
+        <button
+            class="primary"
+            hx-get="http://localhost:3001/signup"
+            hx-target="#app"
+            hx-push-url="http://localhost:3001/signup">
+            Sign up
+        </button>
+    </div>
+</nav>
+
+<main>
+    <div id="app">
+        <h1>Welcome</h1>
+        <p>This is the landing page.</p>
+
+        <button
+            class="primary"
+            hx-get="http://localhost:3001/signup"
+            hx-target="#app"
+            hx-push-url="http://localhost:3001/signup">
+            Get started
+        </button>
+    </div>
+</main>
+
 </body>
 </html>

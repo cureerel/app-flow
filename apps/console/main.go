@@ -1,17 +1,22 @@
 package main
 
 import (
-    "log"
+	_ "embed"
+	"log"
 
-    "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
+//go:embed index.html
+var indexHTML []byte
+
 func main() {
-    app := fiber.New()
+	app := fiber.New()
 
-    app.Get("/", func(c *fiber.Ctx) error {
-        return c.SendString("console app")
-    })
+	app.Get("/", func(c *fiber.Ctx) error {
+		c.Type("html")
+		return c.Send(indexHTML)
+	})
 
-    log.Fatal(app.Listen(":3002"))
+	log.Fatal(app.Listen(":3002"))
 }
