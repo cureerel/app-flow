@@ -4,4 +4,3 @@
 *.sqlite3
 bin/
 db/app.db
-.github

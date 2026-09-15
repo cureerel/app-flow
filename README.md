@@ -1,4 +1,4 @@
-# Multi App Test Harness
+# App Flow
 
 ## Apps
 
@@ -14,3 +14,8 @@
 - Fiber
 - HTMX
 - SQLite
+
+## Screenshots
+| Landing Page | Auth Page | Console Page |
+| :---: | :---: | :---: |
+| <img src=".github/assets/landing_page.png" width="300"> | <img src=".github/assets/auth_page.png" width="300"> | <img src=".github/assets/console_page.png" width="300"> |
