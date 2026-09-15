@@ -3,103 +3,200 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Auth</title>
-
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
-
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: system-ui, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #F9FAFB;
+            color: #111827;
         }
 
         nav {
-            padding: 16px;
-            border-bottom: 1px solid #ddd;
+            padding: 18px 24px;
+            border-bottom: 1px solid #E5E7EB;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 22px;
+            height: 22px;
+            background: #111827;
+            border-radius: 6px;
+            flex-shrink: 0;
         }
 
         main {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 48px 20px;
+            max-width: 420px;
+            margin: 64px auto;
+            padding: 32px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Error Message Box */
+        .error-msg {
+            background: #FEF2F2;
+            color: #991B1B;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #FECACA;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         form {
             display: grid;
-            gap: 16px;
+            gap: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 11px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
-        button {
-            padding: 12px 16px;
-            border: 0;
-            border-radius: 6px;
-            background: black;
-            color: white;
+        input:focus {
+            border-color: #111827;
+            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+        }
+
+        /* Base Button Style */
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
         }
 
-        .switch {
+        /* Primary Button */
+        .btn-primary {
+            background: #111827;
+            color: white;
+            border: 1px solid #111827;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-1px);
+        }
+
+        /* Secondary/Outline Button */
+        .btn-outline {
             background: white;
-            color: black;
-            border: 1px solid #ccc;
+            color: #111827;
+            border: 1px solid #D1D5DB;
+        }
+
+        .btn-outline:hover {
+            border-color: #111827;
+            background: #F9FAFB;
+        }
+
+        .htmx-indicator {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #6B7280;
+            font-size: 0.85rem;
+        }
+
+        .htmx-request .htmx-indicator {
+            display: block;
+        }
+
+        .htmx-request .btn {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .auth-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6B7280;
+        }
+
+        .auth-footer a {
+            color: #111827;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            main {
+                margin: 32px 16px;
+                padding: 24px;
+            }
         }
     </style>
 </head>
-
 <body>
 
 <nav>
-    <strong>MyApp Auth</strong>
+    <a href="/" class="logo">
+        <div class="logo-icon"></div>
+        Aura
+    </a>
+    <a href="/" class="btn btn-outline">Back to Home</a>
 </nav>
 
 <main id="auth">
-
-    <h1>Login</h1>
-
-    <form
-        hx-post="/login"
-        hx-target="#auth"
-        hx-swap="outerHTML">
-
-        <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required>
-
-        <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required>
-
-        <button type="submit">
-            Login
-        </button>
-    </form>
-
-    <br>
-
-    <button
-        class="switch"
-        hx-get="/signup"
-        hx-target="#auth"
-        hx-swap="outerHTML">
-        Create account
-    </button>
-
+    {{ .Content }}
 </main>
 
 </body>
